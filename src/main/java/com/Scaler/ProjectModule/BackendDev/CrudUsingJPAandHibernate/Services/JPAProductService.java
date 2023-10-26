@@ -1,13 +1,20 @@
 package com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Services;
 
-import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DTO.ProductDTO;
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DAO.ProductRepository;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class JPAProductService implements IProductService {
+
+    @Autowired
+    private ProductRepository productRepository;
+    public JPAProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
 
     public JPAProductService() {
@@ -29,14 +36,15 @@ public class JPAProductService implements IProductService {
     }
 
     @Override
-    public Product addNewProduct(ProductDTO productDTO) {
-        return null;
+    public Product addNewProduct(Product product) {
+        Product savedProduct = this.productRepository.save(product);
+        return savedProduct;
     }
 
 
 
     @Override
-    public Product updateProduct(Long productId, ProductDTO productDTO) {
+    public Product updateProduct(Long productId, Product product) {
         return null;
     }
 

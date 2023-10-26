@@ -15,6 +15,6 @@ public  class Rating {
     private long id;
     private double rate;
     private double count;
-    @OneToOne(mappedBy = "rating")
+    @OneToOne(mappedBy = "rating" , cascade = CascadeType.ALL)
     private Product product;
 }

@@ -5,15 +5,17 @@ import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DTO.ProductD
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DTO.RatingDto;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Services.JPAProductService;
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Category;
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Rating;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/JPA/products")
 public class JPAProductController {
-    private JPAProductService productService;
-    public void JProductController(JPAProductService productService) {
-          this.productService = productService;
+    private JPAProductService jpaProductService;
+    public  JPAProductController(JPAProductService jpaProductService) {
+          this.jpaProductService = jpaProductService;
     }
 
     @GetMapping()
@@ -28,7 +30,10 @@ public class JPAProductController {
 
     @PostMapping()
     public ProductDTO addProduct(@RequestBody ProductDTO ProductDTO){
-        return null;
+        Product product = convertToProduct(ProductDTO);
+        Product dbProduct = jpaProductService.addNewProduct(product);
+        ProductDTO dbProductDTO = convertToProductDTO(dbProduct);
+        return dbProductDTO;
     }
 
 
@@ -66,13 +71,20 @@ public class JPAProductController {
         return productDTO;
     }
 
-    public Product convertToProduct(ProductDTO productDTO){
+    private Product convertToProduct(ProductDTO productDTO) {
         Product product = new Product();
         product.setId(productDTO.getId());
         product.setTitle(productDTO.getTitle());
         product.setPrice(productDTO.getPrice());
+        Category category = new Category();
+        category.setName(productDTO.getCategory());
+        product.setCategory(category);
         product.setImage(productDTO.getImage());
         product.setDescription(productDTO.getDescription());
+        Rating rating = new Rating();
+        rating.setRate(productDTO.getRating().getRate());
+        rating.setCount(productDTO.getRating().getCount());
+        product.setRating(rating);
         return product;
     }
 }
