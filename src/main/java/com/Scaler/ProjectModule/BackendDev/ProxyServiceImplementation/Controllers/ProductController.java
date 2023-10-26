@@ -3,7 +3,9 @@ package com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Controlle
 
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.DTO.ProductDTO;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.DTO.RatingDto;
+import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Category;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Product;
+import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Rating;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Services.FSProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,14 +45,18 @@ public class ProductController {
     }
     @PostMapping()
     public ProductDTO addNewProduct(@RequestBody ProductDTO productDTO){
-        Product  DBproduct = productService.addNewProduct(productDTO);
+        Product product = convertToProduct(productDTO);
+        Product  DBproduct = productService.addNewProduct(product);
         ProductDTO dbproductDTO = convertToProductDTO(DBproduct);
         return dbproductDTO;
     }
 
+
+
     @PatchMapping("/{id}")
     public ProductDTO  updateProduct( @PathVariable("id") long id, @RequestBody ProductDTO productDTO){
-        Product DBproduct = productService.updateProduct(id,productDTO);
+        Product product = convertToProduct(productDTO);
+        Product DBproduct = productService.updateProduct(id,product);
         ProductDTO DBproductDTO = convertToProductDTO(DBproduct);
         return DBproductDTO;
     }
@@ -86,7 +92,7 @@ public class ProductController {
 
 
     //helper methods
-    public ProductDTO convertToProductDTO(Product product){
+    private ProductDTO convertToProductDTO(Product product){
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());
         productDTO.setTitle(product.getTitle());
@@ -99,5 +105,22 @@ public class ProductController {
         ratingDto.setCount(product.getRating().getCount());
         productDTO.setRating(ratingDto);
         return productDTO;
+    }
+
+    private Product convertToProduct(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setId(productDTO.getId());
+        product.setTitle(productDTO.getTitle());
+        product.setPrice(productDTO.getPrice());
+        Category category = new Category();
+        category.setName(productDTO.getCategory());
+        product.setCategory(category);
+        product.setImage(productDTO.getImage());
+        product.setDescription(productDTO.getDescription());
+        Rating rating = new Rating();
+//        rating.setRate(productDTO.getRating().getRate());
+//        rating.setCount(productDTO.getRating().getCount());
+        product.setRating(rating);
+        return product;
     }
 }

@@ -1,7 +1,6 @@
 package com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Services;
 
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Client.FakeStore.FakeStoreClient.FakeStoreClient;
-import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.DTO.ProductDTO;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Product;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +34,8 @@ public class FSProductService implements IProductService {
     }
 
     @Override
-    public Product addNewProduct(ProductDTO productDTO) {
-        Product dbproduct = fakeStoreProductClient.addNewProduct(productDTO);
+    public Product addNewProduct(Product product) {
+        Product dbproduct = fakeStoreProductClient.addNewProduct(product);
         //save in DB
         return  dbproduct;
     }
@@ -44,8 +43,8 @@ public class FSProductService implements IProductService {
 
 
     @Override
-    public Product updateProduct(Long productId, ProductDTO productDTO) {
-        Product dbproduct = fakeStoreProductClient.updateProduct(productId, productDTO);
+    public Product updateProduct(Long productId, Product product) {
+        Product dbproduct = fakeStoreProductClient.updateProduct(productId, product);
         return dbproduct;
     }
 

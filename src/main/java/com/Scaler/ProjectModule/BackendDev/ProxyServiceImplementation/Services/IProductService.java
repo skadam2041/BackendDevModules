@@ -1,6 +1,5 @@
 package com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Services;
 
-import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.DTO.ProductDTO;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Product;
 
 import java.util.List;
@@ -10,10 +9,10 @@ public interface IProductService {
 
     Product getSingleProduct(long productId);
 
-    Product addNewProduct(ProductDTO productDTO);
+    Product addNewProduct(Product product);
 
 
-    Product updateProduct(Long productId, ProductDTO productDTO);
+    Product updateProduct(Long productId, Product product);
 
     Product deleteProduct(Long productId);
 

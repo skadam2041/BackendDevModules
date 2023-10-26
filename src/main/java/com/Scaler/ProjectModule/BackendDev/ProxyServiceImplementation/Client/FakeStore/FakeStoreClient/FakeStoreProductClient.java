@@ -2,7 +2,6 @@ package com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Client.Fa
 
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Client.FakeStore.FakeStoreDTO.FakeStoreProductDTO;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Client.FakeStore.FakeStoreDTO.RatingDto;
-import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.DTO.ProductDTO;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Category;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.ProxyServiceImplementation.Models.Rating;
@@ -75,18 +74,18 @@ public class FakeStoreProductClient implements FakeStoreClient {
 
 
 
-    public Product addNewProduct(ProductDTO productDTO) {
+    public Product addNewProduct(Product product) {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        FakeStoreProductDTO fakeStoreProductDTO = convertToFakeStoreProductDTO(productDTO);
+        FakeStoreProductDTO fakeStoreProductDTO = convertToFakeStoreProductDTO(product);
         FakeStoreProductDTO fakeStoreProductDTO1 = restTemplate.postForEntity("https://fakestoreapi.com/products", fakeStoreProductDTO, FakeStoreProductDTO.class).getBody();
         fakeStoreProductDTO1.setRating(new RatingDto());
-        Product product = convertToProduct(fakeStoreProductDTO1);
-        return product;
+        Product product1 = convertToProduct(fakeStoreProductDTO1);
+        return product1;
     }
 
 
-    public Product updateProduct(Long productId, ProductDTO productDTO) {
-        FakeStoreProductDTO fakeStoreProductDTO =  convertToFakeStoreProductDTO(productDTO);
+    public Product updateProduct(Long productId, Product product) {
+        FakeStoreProductDTO fakeStoreProductDTO =  convertToFakeStoreProductDTO(product);
 
         ResponseEntity<FakeStoreProductDTO> responseEntity = patchForEntity(HttpMethod.PATCH,"https://fakestoreapi.com/products/{id}",fakeStoreProductDTO, FakeStoreProductDTO.class, productId);
         FakeStoreProductDTO DBfakeStoreProductDTO  = responseEntity.getBody();
@@ -135,13 +134,17 @@ public class FakeStoreProductClient implements FakeStoreClient {
 
     //helper methods
 
-    public FakeStoreProductDTO convertToFakeStoreProductDTO(ProductDTO productDTO) {
+    public FakeStoreProductDTO convertToFakeStoreProductDTO(Product product) {
         FakeStoreProductDTO fakeStoreProductDTO = new FakeStoreProductDTO();
-        fakeStoreProductDTO.setTitle(productDTO.getTitle());
-        fakeStoreProductDTO.setPrice(productDTO.getPrice());
-        fakeStoreProductDTO.setCategory(productDTO.getCategory());
-        fakeStoreProductDTO.setImage(productDTO.getImage());
-        fakeStoreProductDTO.setDescription(productDTO.getDescription());
+        fakeStoreProductDTO.setId(product.getId());
+        fakeStoreProductDTO.setTitle(product.getTitle());
+        fakeStoreProductDTO.setPrice(product.getPrice());
+        fakeStoreProductDTO.setCategory(product.getCategory().getName());
+        fakeStoreProductDTO.setImage(product.getImage());
+        fakeStoreProductDTO.setDescription(product.getDescription());
+        RatingDto ratingDto = new RatingDto();
+        ratingDto.setRate(product.getRating().getRate());
+        ratingDto.setCount(product.getRating().getCount());
 
         return fakeStoreProductDTO;
 
