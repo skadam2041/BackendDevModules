@@ -1,9 +1,6 @@
 package com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,10 +13,12 @@ public class Product extends BaseModel {
     private String title;
     private double price;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.SELECT)
     private Category category;
     private String image;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.SELECT)
     private Rating rating;
 
 }

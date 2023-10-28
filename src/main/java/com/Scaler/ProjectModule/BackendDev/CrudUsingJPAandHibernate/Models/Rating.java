@@ -11,10 +11,11 @@ import lombok.ToString;
 @Entity(name = "jpa_rating")
 public  class Rating {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private double rate;
     private double count;
-    @OneToOne(mappedBy = "rating" , cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "rating",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//    @Fetch(FetchMode.SELECT)
     private Product product;
 }
