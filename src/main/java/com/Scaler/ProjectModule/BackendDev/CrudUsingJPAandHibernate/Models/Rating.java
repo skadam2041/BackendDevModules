@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Getter
 @Setter
@@ -16,6 +18,7 @@ public  class Rating {
     private double rate;
     private double count;
     @OneToOne(mappedBy = "rating",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//    @Fetch(FetchMode.SELECT)
+    @Fetch(FetchMode.SELECT)
     private Product product;
+
 }

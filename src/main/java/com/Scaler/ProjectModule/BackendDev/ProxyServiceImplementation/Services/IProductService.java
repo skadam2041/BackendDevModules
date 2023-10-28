@@ -16,8 +16,6 @@ public interface IProductService {
 
     Product deleteProduct(Long productId);
 
-    public List<String> getAllCategory();
 
-    public  List<Product>  getInCategory(String categoryName);
 
 }

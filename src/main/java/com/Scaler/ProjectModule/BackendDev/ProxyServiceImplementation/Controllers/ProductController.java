@@ -68,25 +68,7 @@ public class ProductController {
         return DBproductDTO;
     }
 
-    @GetMapping("/categories")
-    public List<String> getAllCategories(){
-        List<String> categories = productService.getAllCategory();
-        return categories;
-    }
 
-    @GetMapping("/category/{categoryName}")
-    public List<ProductDTO>  getInCategory(@PathVariable("categoryName") String categoryName){
-        List<Product> products = productService.getInCategory(categoryName);
-
-        List<ProductDTO> productDTOS = new ArrayList<>();
-
-        for (Product product: products) {
-            ProductDTO productDTO = convertToProductDTO(product);
-            productDTOS.add(productDTO);
-        }
-
-        return productDTOS;
-    }
 
 
 

@@ -50,7 +50,10 @@ public class ProductRepoTest {
         System.out.println("debug");
 
 
-
+//        String[] productTitleList = productRepository.getProductTitleById(200l);
+//        for (  String productTitle:productTitleList) {
+//            System.out.println(productTitle);
+//        }
 
 
     }

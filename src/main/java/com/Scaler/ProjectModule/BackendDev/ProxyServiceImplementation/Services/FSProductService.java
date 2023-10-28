@@ -54,19 +54,7 @@ public class FSProductService implements IProductService {
         return dbproduct;
     }
 
-    @Override
-    public List<String> getAllCategory() {
-        List<String> categories = fakeStoreProductClient.getAllCategory();
-        return  categories;
-    }
 
-    @Override
-    public List<Product> getInCategory(String categoryName) {
-        List<Product> products = fakeStoreProductClient.getInCategory(categoryName);
-
-        return products;
-
-    }
 
 
 
