@@ -1,9 +1,9 @@
-package com.Scaler.ProjectModule.BackendDev.DAOTest;
+package com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernateTest.DAOTest;
 
 
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DAO.ProductRepository;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Category;
-import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Rating;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class ProductRepoTest {
     @Test
     @Transactional
     @Rollback(value = false)
-    public void saveProductAndCategoryAndRating() {
+    public void saveProductAndCategoryAndRatingTest() {
         Product product = new Product();
         product.setId(200l);
         product.setTitle("Samsung Galaxy S10");

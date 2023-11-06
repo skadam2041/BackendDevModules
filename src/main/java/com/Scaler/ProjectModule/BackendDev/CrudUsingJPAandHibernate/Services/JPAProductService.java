@@ -23,16 +23,14 @@ public class JPAProductService implements IProductService {
 
     @Override
     public List<Product> getAllProducts()    {
-
-
-        return  null;
+        List<Product> products = this.productRepository.findAll();
+        return products;
     }
 
     @Override
     public Product getSingleProduct(long productId) {
-
-
-        return null;
+        Product product = this.productRepository.findById(productId).get();
+        return product;
     }
 
     @Override
@@ -45,24 +43,20 @@ public class JPAProductService implements IProductService {
 
     @Override
     public Product updateProduct(Long productId, Product product) {
-        return null;
+        this.productRepository.deleteById(productId);
+        Product savedProduct = this.productRepository.save(product);
+        return savedProduct;
+
     }
 
     @Override
-    public Product deleteProduct(Long productId) {
-        return null;
+    public String deleteProduct(long productId) {
+        this.productRepository.deleteById(productId);
+
+        return "Product Deleted Successfully";
     }
 
-    @Override
-    public List<String> getAllCategory() {
-        return null;
-    }
 
-    @Override
-    public List<Product> getInCategory(String categoryName) {
-        return null;
-
-    }
 
 
 

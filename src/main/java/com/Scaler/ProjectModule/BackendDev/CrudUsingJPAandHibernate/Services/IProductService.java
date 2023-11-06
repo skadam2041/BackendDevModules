@@ -1,9 +1,12 @@
 package com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Services;
 
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
 public interface IProductService {
     List<Product> getAllProducts();
 
@@ -14,10 +17,8 @@ public interface IProductService {
 
     Product updateProduct(Long productId, Product product);
 
-    Product deleteProduct(Long productId);
+    String deleteProduct(long productId);
 
-    public List<String> getAllCategory();
 
-    public  List<Product>  getInCategory(String categoryName);
 
 }

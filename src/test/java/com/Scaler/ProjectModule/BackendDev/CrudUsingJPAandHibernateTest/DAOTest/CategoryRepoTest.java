@@ -1,8 +1,8 @@
-package com.Scaler.ProjectModule.BackendDev.DAOTest;
+package com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernateTest.DAOTest;
 
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DAO.CategoryRepository;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Category;
-import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Rating;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class CategoryRepoTest {
     @Test
     @Transactional
     @Rollback(value = false)
-    public void saveCategoryAndProdutAndrating() {
+    public void saveCategoryAndProdutAndratingTest() {
         Category category1 = new Category();
         category1.setName("Electronics");
         category1.setDescription("Electronics Object");
@@ -64,7 +64,7 @@ public class CategoryRepoTest {
 
         categoryRepository.save(category1);
 
-        Category dbCategory = categoryRepository.findById(300).get();
+        Category dbCategory = categoryRepository.findById(300l).get();
 
         System.out.println(dbCategory.getName());
         List<Product> dbProductList = dbCategory.getProductList();

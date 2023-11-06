@@ -23,5 +23,4 @@ public class Product extends BaseModel {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Fetch(FetchMode.SELECT)
     private Rating rating;
-
 }

@@ -3,12 +3,14 @@ package com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Controllers
 
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DTO.ProductDTO;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.DTO.RatingDto;
-import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
-import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Services.JPAProductService;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Category;
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Product;
 import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Models.Rating;
+import com.Scaler.ProjectModule.BackendDev.CrudUsingJPAandHibernate.Services.JPAProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/JPA/products")
@@ -19,13 +21,21 @@ public class JPAProductController {
     }
 
     @GetMapping()
-    public ProductDTO getAllProduct(){
-        return null;
+    public List<ProductDTO> getAllProduct(){
+        List<Product> products = jpaProductService.getAllProducts();
+        List<ProductDTO> productDTOS = new ArrayList<>();
+        for (Product product : products) {
+            ProductDTO productDTO = convertToProductDTO(product);
+            productDTOS.add(productDTO);
+        }
+        return productDTOS;
     }
 
     @GetMapping("/{id}")
     public ProductDTO getProductById(@PathVariable("id") long id){
-        return null;
+        Product product = jpaProductService.getSingleProduct(id);
+        ProductDTO productDTO = convertToProductDTO(product);
+        return productDTO;
     }
 
     @PostMapping()
@@ -37,15 +47,19 @@ public class JPAProductController {
     }
 
 
-    @PatchMapping("/{id}")
+    @PutMapping ("/{id}")
     public ProductDTO updateProduct(@PathVariable("id")  long  id,@RequestBody ProductDTO ProductDTO) {
-        return null;
+        Product product = convertToProduct(ProductDTO);
+        Product dbProduct = jpaProductService.updateProduct(id,product);
+        ProductDTO dbProductDTO = convertToProductDTO(dbProduct);
+        return dbProductDTO;
     }
 
 
     @DeleteMapping("/{id}")
-    public  ProductDTO deleteProduct(long id) {
-        return null;
+    public  String deleteProduct(@PathVariable("id")  long  id) {
+        String responce = jpaProductService.deleteProduct(id);
+        return  responce;
     }
 
 
@@ -71,7 +85,7 @@ public class JPAProductController {
         return productDTO;
     }
 
-    private Product convertToProduct(ProductDTO productDTO) {
+    public Product convertToProduct(ProductDTO productDTO) {
         Product product = new Product();
         product.setId(productDTO.getId());
         product.setTitle(productDTO.getTitle());
