@@ -9,7 +9,7 @@
     <persistence-units>
       <persistence-unit name="Default">
         <packages>
-          <package value="com.Scaler.ProjectModule.BackendDev" />
+          <package value="com.Scaler.ProjectModule.ProductCatalog" />
         </packages>
       </persistence-unit>
     </persistence-units>
